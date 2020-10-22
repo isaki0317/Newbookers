@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-3">
       <h2>User info</h2>
-      <p>ここに写真</p>
+      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'100x100'%>
       <table class="table">
         <tbody>
           <tr></tr>
@@ -63,7 +63,7 @@
               <%= attachment_image_tag book.user, :profile_image, :fill, 40, 40, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'40x40'%>
             <% end %>
             </th>
-            <th><%= book.title %></th>
+            <th><%= link_to book.title, book_path(book.id) %></th>
             <th><%= book.body %></th>
           </tr>
         </tbody>

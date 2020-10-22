@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-3">
       <h2>User info</h2>
-      
+      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'100x100'%>
       <table class="table">
         <tbody>
           <tr></tr>
@@ -61,7 +61,9 @@
             <%= attachment_image_tag user, :profile_image, :fill, 40, 40, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'40x40'%>
             </th>
             <th><%= user.name %></th>
-            <th>Show</th>
+            <th>
+              <%= link_to "Show", user_path(user) %>
+            </th>
           </tr>
         </tbody>
         <% end %>
