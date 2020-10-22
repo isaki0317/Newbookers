@@ -1,5 +1,8 @@
 class BooksController < ApplicationController
   def index
+    @user = current_user
+    @books = Book.all
+    @post_book = Book.new
   end
 
   def show
@@ -19,6 +22,8 @@ class BooksController < ApplicationController
       flash[:notice] = "Book was successfully created."
       redirect_to book_path(@post_book)
     else
+      @books = Book.all
+      @user = current_user
       render :index
     end
   end
@@ -31,7 +36,7 @@ class BooksController < ApplicationController
 
   private
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :user_id)
   end
 
 end
