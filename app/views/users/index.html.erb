@@ -1,17 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-3">
-      <h2>User info</h2>
-      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'100x100'%>
+      <h2 class="glyphicon glyphicon-wrench">Userinfo</h2>
+      <p>
+      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "attachment user profile_image fallback img-circle avatar", fallback: "no_image.jpg", size:'100x100'%>
+      </p>
       <table class="table">
         <tbody>
           <tr></tr>
           <tr>
-            <th>name</th>
+            <th class="title">name</th>
             <th><%= @user.name %></th>
           </tr>
           <tr>
-            <th>introduction</th>
+            <th class="title">introduction</th>
             <th><%= @user.introduction %></th>
           </tr>
         </tbody>
@@ -19,23 +21,23 @@
       <div class="row">
       <% if @user == current_user %>
         <%= link_to edit_user_path(@user) do %>
-          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default"></i>
+          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default info"></i>
         <% end %>
       <% else %>
         <%= link_to user_path(current_user.id) do %>
-          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default"></i>
+          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default info"></i>
         <% end %>
       <% end %>
       </div>
       <!--部分テンプレ-->
-      <h2>New Book</h2>
+      <h2 class="glyphicon glyphicon-book">NewBook</h2>
       <%= form_with model: @post_book, local: true do |f| %>
       <div class="field-row">
-        <label for="book_title">Title</label>
+        <label for="book_title title">Title</label>
         <%= f.text_field :title, class:"form-control" %>
       </div>
       <div class="field-row">
-        <label for="book_body">Opinion</label>
+        <label for="book_body title">Opinion</label>
         <%= f.text_area :body, class:"form-control" %>
       </div>
       <div class="actions row">
@@ -45,12 +47,12 @@
       <!--ここまで-->
     </div>
     <div class="col-xs-9">
-      <h2>Users</h2>
+      <h2 class="glyphicon glyphicon-user">Users</h2>
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
-            <th>image</th>
-            <th>name</th>
+            <th class="title">image</th>
+            <th class="title">name</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -58,7 +60,7 @@
         <tbody>
           <tr>
             <th>
-            <%= attachment_image_tag user, :profile_image, :fill, 40, 40, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'40x40'%>
+            <%= attachment_image_tag user, :profile_image, :fill, 40, 40, class: "attachment user profile_image fallback img-circle avatar", fallback: "no_image.jpg", size:'40x40'%>
             </th>
             <th><%= user.name %></th>
             <th>

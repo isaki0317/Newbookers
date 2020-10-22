@@ -1,17 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-3">
-      <h2>User info</h2>
-      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'100x100'%>
+      <h2 class="glyphicon glyphicon-wrench">Userinfo</h2>
+      <p>
+      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "attachment user profile_image fallback img-circle avatar", fallback: "no_image.jpg", size:'100x100'%>
+      </p>
       <table class="table">
         <tbody>
           <tr></tr>
           <tr>
-            <th>name</th>
+            <th class="title">name</th>
             <th><%= @user.name %></th>
           </tr>
           <tr>
-            <th>introduction</th>
+            <th class="title">introduction</th>
             <th><%= @user.introduction %></th>
           </tr>
         </tbody>
@@ -19,23 +21,23 @@
       <div class="row">
       <% if @user == current_user %>
         <%= link_to edit_user_path(@user) do %>
-          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default"></i>
+          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default info"></i>
         <% end %>
       <% else %>
         <%= link_to user_path(current_user.id) do %>
-          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default"></i>
+          <i class="glyphicon glyphicon-wrench col-xs-12 btn btn-default info"></i>
         <% end %>
       <% end %>
       </div>
       <!--部分テンプレ-->
-      <h2>New Book</h2>
+      <h2 class="glyphicon glyphicon-book">NewBook</h2>
       <%= form_with model: @post_book, local: true do |f| %>
       <div class="field-row">
-        <label for="book_title">Title</label>
+        <label for="book_title title">Title</label>
         <%= f.text_field :title, class:"form-control" %>
       </div>
       <div class="field-row">
-        <label for="book_body">Opinion</label>
+        <label for="book_body title">Opinion</label>
         <%= f.text_area :body, class:"form-control" %>
       </div>
       <div class="actions row">
@@ -45,13 +47,21 @@
       <!--ここまで-->
     </div>
     <div class="col-xs-9">
-      <h2>Book detail</h2>
+      <h2 class="glyphicon glyphicon-book">Bookdetail</h2>
       <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="title">Title</th>
+            <th class="title">Opinion</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td>
             <%= link_to user_path(@book.user) do %>
-              <%= attachment_image_tag @book.user, :profile_image, :fill, 40, 40, class: "attachment user profile_image fallback", fallback: "no_image.jpg", size:'40x40'%>
+              <%= attachment_image_tag @book.user, :profile_image, :fill, 40, 40, class: "attachment user profile_image fallback img-circle avatar", fallback: "no_image.jpg", size:'40x40'%>
             <% end %>
             </td>
             <td><%= @book.title %></td>
@@ -67,6 +77,39 @@
           </tr>
         </tbody>
       </table>
+      <!--ここからコメント機能-->
+      <ol>
+        <% @book.post_comments.each do |post_comment| %>
+          <li class="comment">
+            <div class="comment-body bb">
+              <div class="comment-avatar">
+                <div class="avatar">
+                  <%= attachment_image_tag @book.user, :profile_image, :fill, 30, 30, class: "attachment user profile_image fallback img-circle", fallback: "no_image.jpg", size:'30x30'%>
+                </div>
+              </div>
+              <div class="comment-text">
+                <div class="comment-author clearfix">
+                  <a href="#" class="link-author"><%= post_comment.user.name %></a>
+                  <span class="comment-meta">
+                    <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
+                  </span>
+                </div>
+                <div class="comment-entry"><%= post_comment.comment %></div>
+                <% if post_comment.user == current_user %>
+                <div>
+                  <%= link_to "削除", book_post_comment_path(post_comment.book, post_comment), method: :delete, class: "btn-sm btn btn-danger pull-right" %>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+      
+      <%= form_with(model:[@book, @post_comment], local: true) do |f| %>
+      <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
+      <%= f.submit "送信する", class: "btn-sm btn-success pull-right" %>
+      <% end %>
     </div>
   </div>
 </div>

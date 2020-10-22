@@ -16,6 +16,87 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .body {
   margin-top: 51px;
+  padding-top: 20px;
+  background-color: rgba(200, 200, 100, 0.3);
+}
+
+
+// ここからコメント
+
+li {
+  list-style: none;
+}
+
+.comment-body {
+  border: 2px solid #dddddd;
+  border-radius: 5px;
+  position: relative;
+  padding: 10px;
+  background-color: white;
+}
+
+.comment-avatar {
+  position: absolute;
+}
+
+.avatar {
+  border: 2px solid #dddddd;
+  border-radius: 50%;
+}
+
+.comment {
+  margin-bottom: 20px;
+}
+
+.comment-text {
+  padding-left: 45px;
+}
+
+// ここまでコメント
+
+// ここからいいね機能
+
+
+
+// ここまでいいね機能
+
+footer {
+  background-color: black;
+  margin: 0;
+  
+}
+
+.actions {
+  margin: 10px 0 20px 0;
+}
+
+.info {
+  background-color: #dddddd;
+}
+
+.body {
+  height: 90vh;
+}
+
+.title {
+  font-size: 18px;
+}
+
+tbody {
+  border-bottom: 2px solid #dddddd;
+}
+
+.link-author {
+  margin-right: 10px;
+}
+
+td {
+  font-size: 18px;
 }
