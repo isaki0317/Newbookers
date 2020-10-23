@@ -77,7 +77,36 @@
           </tr>
         </tbody>
       </table>
-      <!--ここからコメント機能-->
+      
+      <!--いいね機能-->
+      <div class="dispray">
+        <% if @book.favorited_by?(current_user) %>
+        <li>
+          <%= link_to book_favorites_path(@book), method: :delete do %>
+            <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+            <%= @book.favorites.count %> いいね
+          <% end %>
+        </li>
+        <% else %>
+        <li>
+          <%= link_to book_favorites_path(@book), method: :post do %>
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+            <%= @book.favorites.count %> いいね
+          <% end %>
+        </li>
+        <% end %>
+        <!--ここまで-->
+        <!--ここからコメント機能-->
+        <li claas="comment-margin">
+          <i class="fa fa-comment"></i>
+          <a href="#comments"><%= @book.post_comments.count %></a>
+        </li>
+      </div>
+      
+      <div class="float-wrapper">
+        <h5 class="comment-count"><%= @book.post_comments.count %>件のコメント</h2>
+      </div>
+      
       <ol>
         <% @book.post_comments.each do |post_comment| %>
           <li class="comment">
@@ -106,10 +135,12 @@
         <% end %>
       </ol>
       
-      <%= form_with(model:[@book, @post_comment], local: true) do |f| %>
-      <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
-      <%= f.submit "送信する", class: "btn-sm btn-success pull-right" %>
-      <% end %>
+      <div class="comment-form">
+        <%= form_with(model:[@book, @post_comment], local: true) do |f| %>
+        <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
+        <%= f.submit "送信する", class: "btn-sm btn-success pull-right" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
