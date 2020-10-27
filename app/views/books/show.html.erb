@@ -78,29 +78,36 @@
         </tbody>
       </table>
       
-      <!--いいね機能-->
       <div class="dispray">
-        <% if @book.favorited_by?(current_user) %>
-        <li>
-          <%= link_to book_favorites_path(@book), method: :delete do %>
-            <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
-            <%= @book.favorites.count %> いいね
-          <% end %>
-        </li>
-        <% else %>
-        <li>
-          <%= link_to book_favorites_path(@book), method: :post do %>
-            <i class="fa fa-heart-o" aria-hidden="true"></i>
-            <%= @book.favorites.count %> いいね
-          <% end %>
-        </li>
-        <% end %>
-        <!--ここまで-->
+        
+        <!--いいね機能-->
+        <div id="likes_buttons_<%= @book.id %>">
+          <%= render partial: 'favorites/favorite', locals: { book: @book} %>
+        </div>
+        <!--↑Ajaxの場合の_favoliteファイルの呼び出し-->
+        
+        <!--いいねここまで-->
+        
         <!--ここからコメント機能-->
-        <li claas="comment-margin">
+        <div claas="comment-margin">
           <i class="fa fa-comment"></i>
           <a href="#comments"><%= @book.post_comments.count %></a>
-        </li>
+        </div>
+        
+        <!--ここからフォロー機能-->
+        
+        <div class="follo">
+          <% if current_user != @book.user %>
+            <% if @book.user.followed_by?(current_user) %>
+              <p><%= link_to "フォロー解除", user_relationships_path(@book.user.id), method: :delete, class: "btn-sm btn-default" %></p>
+            <% else %>
+              <p><%= link_to "フォローする", user_relationships_path(@book.user.id), method: :post, class: "btn-sm btn-default" %></p>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <!--ここまでフォロー-->
+        
       </div>
       
       <div class="float-wrapper">
@@ -141,6 +148,7 @@
         <%= f.submit "送信する", class: "btn-sm btn-success pull-right" %>
         <% end %>
       </div>
+      <!--ここまで-->
     </div>
   </div>
 </div>

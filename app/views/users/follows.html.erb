@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>follows</h1>
+
+  <table>
+    <thead>
+      <th class="title">name</th> 
+      <th class="title">introduction</th>
+      <th class="title">follo</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+      <th>
+        <p><span>name: </span><%= link_to user.name, user_path(user.id) %></p>
+      </th>
+      <th>
+         
+      </th>
+        <% if current_user != user %>
+          <% if user.followed_by?(current_user) %>
+            <p><%=link_to "フォロー解除", user_relationships_path(user.id), method: :delete %></p>
+          <% else %>
+            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
