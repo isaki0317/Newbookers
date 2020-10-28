@@ -1,28 +1,32 @@
 <div class="container">
+  <div class="col-xs-6">
   <h1>follows</h1>
 
-  <table>
+  <table class="table table-hover table-inverse">
     <thead>
       <th class="title">name</th> 
       <th class="title">introduction</th>
-      <th class="title">follo</th>
+      <th class="title">follow</th>
     </thead>
-    <tbody>
       <% @users.each do |user| %>
+    <tbody>
       <th>
-        <p><span>name: </span><%= link_to user.name, user_path(user.id) %></p>
+        <p><%= link_to user.name, user_path(user.id) %></p>
       </th>
       <th>
-         
+        <p><%= user.introduction %></p>
       </th>
+      <th>
         <% if current_user != user %>
           <% if user.followed_by?(current_user) %>
-            <p><%=link_to "フォロー解除", user_relationships_path(user.id), method: :delete %></p>
+            <p><%=link_to "フォロー解除", user_relationships_path(user.id), method: :delete, class: "btn-anfollow btn-sm btn-default" %></p>
           <% else %>
-            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn-follow btn-sm btn-default" %></p>
           <% end %>
         <% end %>
-      <% end %>
+      </th>
     </tbody>
+      <% end %>
   </table>
+  </div>
 </div>

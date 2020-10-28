@@ -70,9 +70,9 @@
             <th>
               <% if current_user != user %>
                 <% if user.followed_by?(current_user) %>
-                  <p><%= link_to "フォロー解除", user_relationships_path(user.id), method: :delete, class: "btn-sm btn-default" %></p>
+                  <p><%= link_to "フォロー解除", user_relationships_path(user.id), method: :delete, class: "btn-anfollow btn-sm btn-default" %></p>
                 <% else %>
-                  <p><%= link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn-sm btn-default" %></p>
+                  <p><%= link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn-follow btn-sm btn-default" %></p>
                 <% end %>
               <% end %>
             </th>

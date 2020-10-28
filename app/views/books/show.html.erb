@@ -99,9 +99,9 @@
         <div class="follo">
           <% if current_user != @book.user %>
             <% if @book.user.followed_by?(current_user) %>
-              <p><%= link_to "フォロー解除", user_relationships_path(@book.user.id), method: :delete, class: "btn-sm btn-default" %></p>
+              <p><%= link_to "フォロー解除", user_relationships_path(@book.user.id), method: :delete, class: "btn-anfollow btn-sm btn-default" %></p>
             <% else %>
-              <p><%= link_to "フォローする", user_relationships_path(@book.user.id), method: :post, class: "btn-sm btn-default" %></p>
+              <p><%= link_to "フォローする", user_relationships_path(@book.user.id), method: :post, class: "btn-follow btn-sm btn-default" %></p>
             <% end %>
           <% end %>
         </div>
