@@ -8,14 +8,12 @@ Rails.application.routes.draw do
   
   # 簡単ログイン機能実装
   post '/homes/guest_sign_in', to: 'homes#new_guest'
-  # devise_scope :user do
-  #   post 'users/guest_sign_in', to: 'users/sessions#new_guest'
-  # end
 
   resources :users, only: [:index, :show, :edit, :create, :update] do
     resource :relationships, only: [:create, :destroy]
     get :follows, on: :member
     get :followers, on: :member
+    get :search, on: :collection
   end
   
   resources :books do

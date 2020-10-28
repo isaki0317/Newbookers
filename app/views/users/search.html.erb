@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="col-xs-6">
+    <h1>User search</h1>
+    <%= form_with url: search_users_path, method: :get, local: true do |f| %>
+      <%= f.text_field :name %>
+      <%= f.submit :search %>
+    <% end %>
+    <table>
+      <thead>
+        <tr>Name</tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <tb><%= user.name %></tb>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -47,7 +47,14 @@
       <!--ここまで-->
     </div>
     <div class="col-xs-9">
-      <h2 class="glyphicon glyphicon-user">Users</h2>
+      <span>
+        <spam>
+          <h2 class="glyphicon glyphicon-user">Users</h2>
+        </spam>
+        <spam>
+          <%= link_to "User seach", search_users_path, class:"btn btn-default" %>
+        </spam>
+      </span>
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
