@@ -12,17 +12,21 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   attachment :profile_image
   
-  
+  # フォロー機能↓
   # 自分がフォローしてるユーザとの関連
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
   has_many :followings, through: :active_relationships, source: :follower
-  
   # 自分がフォローされてるユーザーとの関連
   has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :followers, through: :passive_relationships, source: :following
   
+  # 通知機能↓
+  has_many :active_notifications, class_name: "Notification", foreign_key: :visitor_id, dependent: :destroy
+  has_many :passive_notifications, class_name: "Notification", foreign_key: :visited_id, dependent: :destroy
+  # 通知機能ここまで
+  
+  # フォロー機能↓
   def followed_by?(user)
-    # favorite_byと同じ役目
     passive_relationships.find_by(following_id: user.id).present?
   end
 
