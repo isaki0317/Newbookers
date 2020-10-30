@@ -5,8 +5,6 @@ class FavoritesController < ApplicationController
       favorite = current_user.favorites.new(book_id: params[:book_id])
       favorite.save
       # redirect_to book_path(book)
-      # 通知の作成↓
-      
     end
     
     def destroy

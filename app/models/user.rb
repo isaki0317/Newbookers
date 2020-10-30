@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_books, through: :favorites, source: :book
+  
   attachment :profile_image
   
   # フォロー機能↓
@@ -28,17 +30,6 @@ class User < ApplicationRecord
   # フォロー機能↓
   def followed_by?(user)
     passive_relationships.find_by(following_id: user.id).present?
-  end
-  
-  def create_notification_follow!(current_user)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
-    if temp.blank?
-      notification = current_user.active_notifications.new(
-        visited_id: id,
-        action: 'follow'
-      )
-      notification.save if notification.valid?
-    end
   end
 
 end
