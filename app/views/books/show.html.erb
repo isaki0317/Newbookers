@@ -18,6 +18,7 @@
           </tr>
         </tbody>
       </table>
+      
       <div class="row">
       <% if @user == current_user %>
         <%= link_to edit_user_path(@user) do %>
@@ -88,11 +89,6 @@
         
         <!--いいねここまで-->
         
-        <!--ここからコメント機能-->
-        <div claas="comment-margin">
-          <i class="fa fa-comment"></i>
-          <a href="#comments"><%= @book.post_comments.count %></a>
-        </div>
         
         <!--ここからフォロー機能-->
         
@@ -105,79 +101,15 @@
             <% end %>
           <% end %>
         </div>
-        
+      </div>  
         <!--ここまでフォロー-->
-        
+  
+
+      <!--コメント機能render-->
+      <div id="comments_area_<%= @book.id %>">
+        <%= render partial: 'post_comments/index', locals: { book: @book } %>
       </div>
-      
-      <div class="float-wrapper">
-        <h5 class="comment-count"><%= @book.post_comments.count %>件のコメント</h2>
-      </div>
-      
-      <div class="col-xs-8">
-        <ol>
-          <h6 class="more" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">もっと見る....</h6>
-          <% @book.post_comments.first(2).each do |post_comment| %>
-            <li class="comment">
-              <div class="comment-body bb">
-                <div class="comment-avatar">
-                  <div class="avatar">
-                    <%= attachment_image_tag @book.user, :profile_image, :fill, 30, 30, class: "attachment user profile_image fallback img-circle", fallback: "no_image.jpg", size:'30x30'%>
-                  </div>
-                </div>
-                <div class="comment-text">
-                  <div class="comment-author clearfix">
-                    <a href="#" class="link-author"><%= post_comment.user.name %></a>
-                    <span class="comment-meta">
-                      <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
-                    </span>
-                  </div>
-                  <div class="comment-entry"><%= post_comment.comment %></div>
-                  <% if post_comment.user == current_user %>
-                  <div>
-                    <%= link_to "削除", book_post_comment_path(post_comment.book, post_comment), method: :delete, class: "btn-sm btn btn-danger pull-right" %>
-                  </div>
-                  <% end %>
-                </div>
-              </div>
-            </li>
-          <% end %>
-        </ol>
-          <div class="collapse" id="collapseExample">
-            <% @book.post_comments.offset(2).each do |post_comment| %>
-            <li class="comment">
-              <div class="comment-body bb">
-                <div class="comment-avatar">
-                  <div class="avatar">
-                    <%= attachment_image_tag @book.user, :profile_image, :fill, 30, 30, class: "attachment user profile_image fallback img-circle", fallback: "no_image.jpg", size:'30x30'%>
-                  </div>
-                </div>
-                <div class="comment-text">
-                  <div class="comment-author clearfix">
-                    <a href="#" class="link-author"><%= post_comment.user.name %></a>
-                    <span class="comment-meta">
-                      <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
-                    </span>
-                  </div>
-                  <div class="comment-entry"><%= post_comment.comment %></div>
-                  <% if post_comment.user == current_user %>
-                  <div>
-                    <%= link_to "削除", book_post_comment_path(post_comment.book, post_comment), method: :delete, class: "btn-sm btn btn-danger pull-right" %>
-                  </div>
-                  <% end %>
-                </div>
-              </div>
-            </li>
-          <% end %>
-        </div>
-        
-        <div class="comment-form">
-          <%= form_with(model:[@book, @post_comment], local: true) do |f| %>
-          <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
-          <%= f.submit "送信する", class: "btn-sm btn-success pull-right" %>
-          <% end %>
-        </div>
-      </div>
+      <%= render partial: 'post_comments/form', locals: { book: @book, post_comment: @post_comment } %>
       <!--コメントここまで-->
       
       <!--いいねのリスト-->

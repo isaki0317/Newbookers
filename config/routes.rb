@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'chats/show'
   get 'relationships/create'
   get 'relationships/destroy'
   get 'home/about' => 'homes#about'
@@ -21,6 +22,9 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
   end
+  
+  get 'chat/:id' => 'chats#show', as: 'chat'
+  resources :chats, only: [:create]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

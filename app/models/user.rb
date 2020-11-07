@@ -27,6 +27,11 @@ class User < ApplicationRecord
   has_many :passive_notifications, class_name: "Notification", foreign_key: :visited_id, dependent: :destroy
   # 通知機能ここまで
   
+  # トーク機能
+  has_many :user_room
+  has_many :chats
+  has_many :rooms, through: :user_rooms
+  
   # フォロー機能↓
   def followed_by?(user)
     passive_relationships.find_by(following_id: user.id).present?

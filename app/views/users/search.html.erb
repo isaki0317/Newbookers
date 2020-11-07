@@ -3,7 +3,7 @@
 <div class="container">
   <div class="col-xs-6">
     <h1>User search</h1>
-    <%= form_with url: search_users_path, method: :get, local: true do |f| %>
+    <%= form_with url:search_users_path, method: :get, local: true do |f| %>
       <%= f.text_field :name %>
       <%= f.submit :search %>
     <% end %>
@@ -19,5 +19,25 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+  
+  <div class="col-xs-6">
+    <h1>郵便番号から住所検索</h1> 
+    <label>郵便番号
+      <input type="text" id="postcode" maxlength="8" placeholder="例:0000000">
+    </label>
+    <button id="btn">検索</button>
+    <div id="result">
+      <h2>検索結果</h2>
+      <p><label>都道府県
+        <input type="text" id="pref" size="6">
+      </label></p>
+      <p><label>市区町村
+        <input type="text" id="city">
+      </label></p>
+      <p><label>住所
+        <input type="text" id="address">
+      </label></p>
+    </div>
   </div>
 </div>
