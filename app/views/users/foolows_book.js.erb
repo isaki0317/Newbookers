@@ -1,0 +1,1 @@
+$('.ajax-exercise<%= current_user.id %>').html("<%= j(redirect_to 'users/follows_books', locals: {@follows_books: @follows_books }) %>");

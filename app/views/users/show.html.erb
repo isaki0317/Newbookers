@@ -60,6 +60,7 @@
         <span>
           <spam><%=link_to "フォロー", follows_user_path(@user.id), class: "btn-sm btn-default"  %></spam>
           <spam><%=link_to "フォロワー", followers_user_path(@user.id), class: "btn-sm btn-default" %></spam>
+          <spam class="ajax-exercise<%= current_user.id %>"><%= link_to "フォローユーザーの投稿", follows_books_path, remote: true, class: "btn-sm btn-default" %></spam>
           <spam>
             <% if current_user != @user %>
               <% if @user.followed_by?(current_user) %>

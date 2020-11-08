@@ -28,7 +28,7 @@ class User < ApplicationRecord
   # 通知機能ここまで
   
   # トーク機能
-  has_many :user_room
+  has_many :user_rooms
   has_many :chats
   has_many :rooms, through: :user_rooms
   

@@ -10,10 +10,10 @@ class ChatsController < ApplicationController
       #新しいroomを作成して保存
       @room = Room.new
       @room.save
-      #@room.idと@user.idをUserRoomのカラムに配列で保存
-      UserRoom.create(user_id: @user.id, room_id: @room.id)
       #@room.idとcurrent_user.idをUserRoomのカラムに配列で保存
       UserRoom.create(user_id: current_user.id, room_id: @room.id)
+      #@room.idと@user.idをUserRoomのカラムに配列で保存
+      UserRoom.create(user_id: @user.id, room_id: @room.id)
     else
       #取得している場合は、user_roomsに紐づいているroomテーブルのレコードを@roomに代入
       @room = user_rooms.room
@@ -25,5 +25,12 @@ class ChatsController < ApplicationController
   end
   
   def create
+    @chat = current_user.chats.new(chat_params)
+    @chat.save
+  end
+  
+  private
+  def chat_params
+    params.require(:chat).permit(:message, :room_id)
   end
 end

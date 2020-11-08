@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'chats/show'
   get 'relationships/create'
   get 'relationships/destroy'
   get 'home/about' => 'homes#about'
@@ -10,7 +9,7 @@ Rails.application.routes.draw do
   # 簡単ログイン機能実装
   post '/homes/guest_sign_in', to: 'homes#new_guest'
   # 簡単ログイン機能ここまで
-
+  get 'follows_books' => 'users#follows_book'
   resources :users, only: [:index, :show, :edit, :create, :update] do
     resource :relationships, only: [:create, :destroy]
     get :follows, on: :member

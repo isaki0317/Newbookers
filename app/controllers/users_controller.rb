@@ -52,6 +52,10 @@ class UsersController < ApplicationController
       @users = User.none
     end
   end
+  
+  def follows_book
+     @follows_books = Book.where(user_id: [current_user.id, *current_user.following_ids])
+  end
 
   private
   def user_params
