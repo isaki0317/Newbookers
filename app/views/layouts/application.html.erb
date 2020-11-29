@@ -42,6 +42,15 @@
               </li>
               
               <li>
+                <!--if文の中のメソッドはヘルパーで定義、新規通知の有無で光点を表示-->
+                <%= link_to notifications_path do %> NOTICE
+                  <% if unchecked_notifications.any? %>
+                    <i class="fa fa-circle notification-circle", style="color: gold;"><%= @notifications.count %></i>
+                  <% end %>
+                <% end %>
+              </li>
+              
+              <li>
                 <%= link_to destroy_user_session_path, method: :delete do %>
                 <i class="glyphicon glyphicon-log-out"></i> logout
                 <% end %>

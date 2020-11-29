@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_07_082904) do
+ActiveRecord::Schema.define(version: 2020_11_09_010730) do
 
   create_table "books", force: :cascade do |t|
     t.integer "user_id"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2020_11_07_082904) do
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "room_id"
+    t.integer "chat_id"
     t.index ["book_id"], name: "index_notifications_on_book_id"
     t.index ["post_comment_id"], name: "index_notifications_on_post_comment_id"
     t.index ["visited_id"], name: "index_notifications_on_visited_id"

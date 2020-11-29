@@ -22,11 +22,31 @@ class ChatsController < ApplicationController
     @chats = @room.chats
     #@room.idを代入したChat.newを用意しておく(message送信時のform用)←筆者の表現が合っているか分かりません、、
     @chat = Chat.new(room_id: @room.id)
+    
   end
   
   def create
     @chat = current_user.chats.new(chat_params)
+    #通知機能用の@room定義
+    @room = @chat.room
+    #ここまで通知
     @chat.save
+    #ここから全て通知機能
+    @roommembernotme=UserRoom.where(room_id: @room.id).where.not(user_id: current_user.id)
+    @theid=@roommembernotme.find_by(room_id: @room.id)
+    notification = current_user.active_notifications.new(
+        room_id: @room.id,
+        chat_id: @chat.id,
+        visited_id: @theid.user_id,
+        visitor_id: current_user.id,
+        action: 'dm'
+    )
+    # 自分の投稿に対するコメントの場合は、通知済みとする
+    if notification.visitor_id == notification.visited_id
+        notification.checked = true
+    end
+    notification.save if notification.valid?
+    # ここまでを追加
   end
   
   private

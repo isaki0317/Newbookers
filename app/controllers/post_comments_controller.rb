@@ -2,9 +2,11 @@ class PostCommentsController < ApplicationController
     
     def create
       @book = Book.find(params[:book_id])
-      comment = current_user.post_comments.build(post_comment_params)
-      comment.book_id = @book.id
-      comment.save
+      @comment = current_user.post_comments.build(post_comment_params)
+      @comment.book_id = @book.id
+      @comment_book = @comment.book
+      @comment.save
+      @comment_book.create_notification_comment!(current_user, @comment.id)
       # 同期の場合↓
       # redirect_to book_path(book)
     end
